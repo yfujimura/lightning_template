@@ -1,0 +1,39 @@
+seed: 1234
+
+mode: train
+
+model:
+  encoder:
+    hidden_dims: [256, 128, 64]
+  decoder:
+    hidden_dims: [64, 128, 256]
+
+dataset:
+  train:
+    batch_size: 100
+    num_workers: 16
+  val:
+    batch_size: 1
+    num_workers: 4
+
+checkpointing:
+  every_n_train_steps: 400
+  save_top_k: 3
+
+optimizer:
+  lr: 1e-3
+
+trainer:
+  num_nodes: 1
+  max_steps: 1
+  val_check_interval: 200
+  gradient_clip_val: 0.5
+  
+wandb:
+  project: proj_name
+  name: exp_name
+  mode: online
+
+hydra:
+  run:
+    dir: outputs/${wandb.project}/${wandb.name}/${now:%Y-%m-%d_%H-%M-%S}
