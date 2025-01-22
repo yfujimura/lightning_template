@@ -5,7 +5,7 @@ hydra + wandb + pytorch lightning でMNISTを用いてオートエンコーダ�
 [WandB](https://wandb.ai/site/ja/)のアカウントを作成
 ```
 conda create -n pytorch_lightning python=3.10
-conda activte pytorch_lightning
+conda activate pytorch_lightning
 pip install -r requirements.txt
 ```
 
