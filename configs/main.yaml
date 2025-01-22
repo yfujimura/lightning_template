@@ -25,7 +25,7 @@ optimizer:
 
 trainer:
   num_nodes: 1
-  max_steps: 1
+  max_steps: 2000
   val_check_interval: 200
   gradient_clip_val: 0.5
   
