@@ -18,13 +18,15 @@ from src.dataset.data_module import DataModule
     config_name="main",
 )
 def main(cfg):
+    torch.set_float32_matmul_precision("medium")
+    
     output_dir = hydra.core.hydra_config.HydraConfig.get()["runtime"]["output_dir"]
     print("output_dir:", output_dir)
 
     logger = WandbLogger(
             project=cfg.wandb.project,
             mode=cfg.wandb.mode,
-            name=cfg.wandb.name,
+            name=cfg.wandb.name + " (" + output_dir.split("/")[-1] + ")",
             save_dir=output_dir,
         )
 
@@ -56,6 +58,7 @@ def main(cfg):
         check_val_every_n_epoch=None,
         enable_progress_bar=True,
         gradient_clip_val=cfg.trainer.gradient_clip_val,
+        precision="bf16-mixed",
         max_steps=cfg.trainer.max_steps,
         inference_mode=False if cfg.mode == "test" else True,
     )

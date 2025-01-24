@@ -36,7 +36,7 @@ class ModelWrapper(LightningModule):
         x = rearrange(x, "b (h w) -> b h w", h=28, w=28)
         input_image = torchvision.transforms.functional.to_pil_image(x[0])
         y = rearrange(y, "b (h w) -> b h w", h=28, w=28)
-        pred_image = torchvision.transforms.functional.to_pil_image(y[0])
+        pred_image = torchvision.transforms.functional.to_pil_image(y[0].float())
         self.logger.log_image(
             key="samples",
             images=[input_image, pred_image],
