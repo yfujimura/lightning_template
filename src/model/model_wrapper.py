@@ -43,6 +43,14 @@ class ModelWrapper(LightningModule):
             caption=["input", "prediction"],
         )
 
+    def test_step(self, batch, batch_idx):
+        x = batch[0]
+        x = rearrange(x, "b c h w -> b (c h w)")
+        y = self.model(x)
+        loss = self.loss_fn(x, y)
+        self.log_dict({"test_loss": loss})
+        return {'test_loss': loss}
+
     def configure_optimizers(self):
         params = self.parameters()
         optimizer = torch.optim.AdamW(params, lr=self.cfg.optimizer.lr, weight_decay=0.05, betas=(0.9, 0.95))

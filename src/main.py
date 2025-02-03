@@ -69,6 +69,13 @@ def main(cfg):
 
     if cfg.mode == "train":
         trainer.fit(model_wrapper, datamodule=data_module)
+    else:
+        trainer.test(
+            model_wrapper,
+            datamodule=data_module,
+            ckpt_path=cfg.checkpointing.load,
+        )
+        #print(trainer.callback_metrics)
 
 if __name__ == "__main__":
     main()

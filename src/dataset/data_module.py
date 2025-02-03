@@ -32,3 +32,13 @@ class DataModule(LightningDataModule):
             drop_last=False,
         )
         return data_loader
+
+    def test_dataloader(self):
+        data_loader = torch.utils.data.DataLoader(
+            self.val_dataset,
+            batch_size=self.cfg.dataset.test.batch_size,
+            num_workers=self.cfg.dataset.test.num_workers,
+            shuffle=False,
+            drop_last=False,
+        )
+        return data_loader
